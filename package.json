@@ -9,16 +9,17 @@
     ]
   },
   "scripts": {
-    "test": "NODE_ENV=test jest --detectOpenHandles --verbose",
-    "test:w": "NODE_ENV=test jest --watchAll --detectOpenHandles --verbose",
-    "start": "NODE_ENV=development node app",
-    "start:dev": "NODE_ENV=development nodemon app"
+    "test": "cross-env NODE_ENV=test jest --detectOpenHandles --verbose",
+    "test:w": "cross-env NODE_ENV=test jest --watchAll --detectOpenHandles --verbose",
+    "start": "cross-env NODE_ENV=development node app",
+    "start:dev": "cross-env NODE_ENV=development nodemon app"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "cors": "^2.8.5",
+    "cross-env": "^7.0.3",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
     "express-validator": "^5.3.0",
@@ -30,6 +31,7 @@
     "yamljs": "^0.3.0"
   },
   "devDependencies": {
+    "chai": "^4.3.7",
     "jest": "^29.5.0",
     "mocha": "^10.2.0",
     "supertest": "^6.3.3"

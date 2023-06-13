@@ -2,6 +2,8 @@ const fs = require('fs');
 const path = require('path');
 
 exports.deleteFile = (filePath) => {
+    if(!filePath)
+        return;
     // console.log(filePath)
     filePath = path.normalize(filePath); //convert to platform specific path(\ in WINDOWS, / in POSIX)   
     // console.log(filePath);
