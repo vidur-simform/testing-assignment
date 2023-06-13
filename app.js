@@ -47,7 +47,7 @@ const fileFilter = (req, file, cb) => {
 
 const app = express();
 app.use(express.json()); // application/json
-app.use( 
+app.use(
     multer({ storage: fileStorage, fileFilter: fileFilter }).single('image')
 );
 app.use('/images', express.static(path.join(__dirname, 'images')));
@@ -61,15 +61,17 @@ app.use('/auth', authRoutes);
 
 app.use(errorHandler);
 
-(async ()=>{
-    try{
+(async () => {
+    try {
         const result = await mongoose.connect(mongodbUri, { useNewUrlParser: true, useUnifiedTopology: true });
         console.log("Database connected...");
-        app.listen(port, () => {
-            console.log("Server started on port:", port);
-        });
+        if (process.env.NODE_ENV != 'test') {
+            app.listen(port, () => {
+                console.log("Server started on port:", port, process.env.NODE_ENV);
+            });
+        }
     }
-    catch(err){
+    catch (err) {
         console.log(err);
     }
 })();

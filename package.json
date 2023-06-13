@@ -3,11 +3,16 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
+  "jest": {
+    "testPathIgnorePatterns": [
+      "tmp"
+    ]
+  },
   "scripts": {
-    "test": "jest",
-    "test:w": "jest --watchAll --detectOpenHandles --verbose",
-    "start": "node app",
-    "start:dev": "nodemon app"
+    "test": "NODE_ENV=test jest --detectOpenHandles --verbose",
+    "test:w": "NODE_ENV=test jest --watchAll --detectOpenHandles --verbose",
+    "start": "NODE_ENV=development node app",
+    "start:dev": "NODE_ENV=development nodemon app"
   },
   "author": "",
   "license": "ISC",
@@ -26,6 +31,7 @@
   },
   "devDependencies": {
     "jest": "^29.5.0",
+    "mocha": "^10.2.0",
     "supertest": "^6.3.3"
   }
 }

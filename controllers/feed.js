@@ -1,9 +1,16 @@
 const Post = require('../models/post');
 const User = require('../models/user');
-
+const {ObjectId} = require('mongoose').Types;
 const { validationResult } = require('express-validator/check');
 const { deleteFile } = require('../utils/file');
 
+const validateId = (postId) =>{
+    if(!ObjectId.isValid(postId)){
+        const error = new Error('Invalid id.');
+        error.statusCode = 404;
+        throw error;
+    }
+}
 
 exports.getPosts = async (req, res, next) => {
     const { page = 1, perPage = 2 } = req.query;
@@ -25,6 +32,7 @@ exports.getPosts = async (req, res, next) => {
 exports.getPost = async (req,res,next) => {
     const postId = req.params.postId;
     try {
+        validateId(postId);
         const post = await Post.findById(postId);
         if (!post) {
             const error = new Error('Could not find post.');
@@ -68,7 +76,6 @@ exports.addPost = async (req,res,next) => {
             creator: req.userId
         });
         const user = await User.findById(req.userId);
-        console.log(req.userId)
         user.posts.push(post);
         await user.save();
         res.status(201).json({
@@ -98,6 +105,7 @@ exports.updatePost = async (req,res,next) => {
 
     const newImageUrl = req.file?.path; //will return undefined if file isn't present
     try {
+        validateId(postId);
         const post = await Post.findById(postId);
         if (!post) {
             const error = new Error('Could not find post.');
@@ -137,6 +145,7 @@ exports.updatePost = async (req,res,next) => {
 exports.deletePost = async (req,res,next) => {
     const postId = req.params.postId;
     try {
+        validateId(postId);
         const post = await Post.findById(postId);
         if (!post) {
             const error = new Error('Could not find post.');
