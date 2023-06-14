@@ -3,11 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "app.js",
-  "jest": {
-    "testPathIgnorePatterns": [
-      "tmp"
-    ]
-  },
   "scripts": {
     "test": "cross-env NODE_ENV=test jest --detectOpenHandles --verbose",
     "test:w": "cross-env NODE_ENV=test jest --watchAll --detectOpenHandles --verbose",

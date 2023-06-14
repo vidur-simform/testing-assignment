@@ -4,7 +4,7 @@ const app = require("../app");
 const User = require("../models/user");
 
 
-describe("Feed APIs", () => {
+describe("Feed APIs", function() {
     let postId, userId, authToken;
 
     beforeAll(async () => {
